@@ -1,0 +1,8 @@
+WebAssembly (Wasm) supports binary format which provides languages such as C/C++, C# and Rust with a compilation target on the web. It is a web standard with active participation from all major browser vendors (Chrome, Edge, Firefox, Safari). Also, Wasm runtime can be widely used for edge computing.
+
+Previous research on Wasm security mostly focuses on exploitation at the compiler and linker level, but few people focus on Wasm VM escape. Therefore, we design a new fuzz framework based on Wasm standard to explore the runtime vulnerability itself. The framework can be compatible with all programs or projects containing Wasm design standards.
+
+If there is an escape vulnerability in the browser kernel or any project that uses Wasm runtime, when an attacker deploys a page or service containing a malicious Wasm binary, he can control the access device or the server that provides the runtime service.
+We find that these escape vulnerabilities are usually caused by inadequate operand boundary checking of bytecode interpreter or stack overflow of WASI API. For example, in wasm3 and WasmEdge projects, we use the above two methods to achieve VM escape. Meanwhile, there are many exploitable vulnerabilities in the parsing of file data structure, which are usually overflow vulnerabilities caused by inadequate inspection of some input fields. Normally, these vulnerabilities will lead to denial of service attacks. In the process of fuzzing, we find that almost all wasm runtime projects can exploit such vulnerabilities.
+
+Finally, we will show the off-by-one vulnerability of a PC stack of WasmEdge that we discovered, which successfully conducts RCE on the host. This process is very ingenious and we will explain it in detail at the demo time.
